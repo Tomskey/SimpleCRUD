@@ -2,15 +2,15 @@ package com.example.TSNotes.TSNotes.service;
 
 import com.example.TSNotes.TSNotes.exceptions.DuplicateTitleException;
 import com.example.TSNotes.TSNotes.exceptions.NoteNotFoundException;
-import com.example.TSNotes.TSNotes.model.dto.CreateNoteDto;
+import com.example.TSNotes.TSNotes.model.dto.EditNoteDto;
 import com.example.TSNotes.TSNotes.model.dto.NoteDto;
 import com.example.TSNotes.TSNotes.model.entity.NoteEntity;
 import com.example.TSNotes.TSNotes.repository.NoteRepository;
-import com.mongodb.DuplicateKeyException;
-import com.mongodb.MongoWriteException;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -28,7 +28,7 @@ public class NoteService {
         return modelMapper.map(list, new TypeToken<List<NoteDto>>() {}.getType());
     }
 
-    public void createNote(CreateNoteDto note) {
+    public void createNote(EditNoteDto note) {
 
         NoteEntity noteEntity = modelMapper.map(note, NoteEntity.class);
         String currentTime = Instant.now().toString();
@@ -41,21 +41,22 @@ public class NoteService {
 
     }
 
-    public NoteDto getSingleNote(String id) {
-        NoteEntity noteEntity = noteRepository.findByTitle(id).orElseThrow(NoteNotFoundException::new);
+    public NoteDto getSingleNote(String title) {
+        NoteEntity noteEntity = noteRepository.findByTitle(title).orElseThrow(NoteNotFoundException::new);
 
         return modelMapper.map(noteEntity, NoteDto.class);
     }
 
-    public void deleteNote(String id) {
-        noteRepository.deleteById(id);
+    public void deleteNote(String title) {
+        noteRepository.deleteByTitle(title);
     }
 
-    public void updateNote(String id, NoteEntity noteDetails) {
-        NoteEntity note = noteRepository.findById(id).orElseThrow(NoteNotFoundException::new);
+    public void updateNote(String title, EditNoteDto noteDetails) {
+        NoteEntity note = noteRepository.findByTitle(title).orElseThrow(NoteNotFoundException::new);
         note.setTitle(noteDetails.getTitle());
         note.setContent(noteDetails.getContent());
-        NoteEntity updatedNote = noteRepository.save(note);
+        note.setUpdatedAt(Instant.now().toString());
+        noteRepository.save(note);
 
     }
 

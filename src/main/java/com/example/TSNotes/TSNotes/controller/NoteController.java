@@ -1,6 +1,6 @@
 package com.example.TSNotes.TSNotes.controller;
 
-import com.example.TSNotes.TSNotes.model.dto.CreateNoteDto;
+import com.example.TSNotes.TSNotes.model.dto.EditNoteDto;
 import com.example.TSNotes.TSNotes.model.dto.NoteDto;
 import com.example.TSNotes.TSNotes.model.entity.NoteEntity;
 import com.example.TSNotes.TSNotes.service.NoteService;
@@ -28,7 +28,7 @@ public class NoteController {
 
     // Create a new NoteEntity
     @PostMapping("/notes")
-    public ResponseEntity<Void> createNote(@Valid @RequestBody CreateNoteDto note) {
+    public ResponseEntity<Void> createNote(@Valid @RequestBody EditNoteDto note) {
         noteService.createNote(note);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -42,7 +42,7 @@ public class NoteController {
     // Update a NoteEntity
     @PutMapping("/notes/{title}")
     public ResponseEntity<Void> updateNote(@PathVariable(value = "title") String title,
-                           @Valid @RequestBody NoteEntity noteDetails) {
+                           @Valid @RequestBody EditNoteDto noteDetails) {
        noteService.updateNote(title,noteDetails);
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

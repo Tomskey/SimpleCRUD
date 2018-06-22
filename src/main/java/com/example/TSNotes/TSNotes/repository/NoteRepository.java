@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface NoteRepository extends MongoRepository<NoteEntity, String> {
     Optional<NoteEntity> findByTitle(String title);
+    Optional<NoteEntity> deleteByTitle(String title);
 }
