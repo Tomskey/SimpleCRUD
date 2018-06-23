@@ -21,4 +21,8 @@ public class NoteDto {
     public void addTag(String tag){
         tags.add(tag);
     }
+    public void deleteTag(String tag){
+        tags.remove(tag);
+    }
+
 }

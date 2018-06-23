@@ -30,6 +30,9 @@ public class NoteEntity implements Serializable {
     public void addTag(String tag){
         tags.add(tag);
     }
+    public void deleteTag(String tag){
+        tags.remove(tag);
+    }
 
 
 

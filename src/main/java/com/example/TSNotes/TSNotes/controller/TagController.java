@@ -24,5 +24,10 @@ public class TagController {
         noteService.addTag(title,tagDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @DeleteMapping("/notes/{title}/tags")
+    public ResponseEntity<Void> deleteTag(@PathVariable String title, @Valid @RequestBody TagDto tagDto) {
+        noteService.deleteTag(title,tagDto);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }

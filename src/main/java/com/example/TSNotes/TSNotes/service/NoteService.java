@@ -74,6 +74,13 @@ public class NoteService {
     public void addTag(String title,TagDto tagDto){
         NoteEntity note=noteRepository.findByTitle(title).orElseThrow(NoteNotFoundException::new);
         note.addTag(tagDto.getTag());
+        noteRepository.save(note);
+
+    }
+    public void deleteTag(String title,TagDto tagDto){
+        NoteEntity note=noteRepository.findByTitle(title).orElseThrow(NoteNotFoundException::new);
+        note.deleteTag(tagDto.getTag());
+        noteRepository.save(note);
 
     }
 
