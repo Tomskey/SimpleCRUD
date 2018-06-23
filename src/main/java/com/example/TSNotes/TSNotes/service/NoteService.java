@@ -4,6 +4,7 @@ import com.example.TSNotes.TSNotes.exceptions.DuplicateTitleException;
 import com.example.TSNotes.TSNotes.exceptions.NoteNotFoundException;
 import com.example.TSNotes.TSNotes.model.dto.EditNoteDto;
 import com.example.TSNotes.TSNotes.model.dto.NoteDto;
+import com.example.TSNotes.TSNotes.model.dto.TagDto;
 import com.example.TSNotes.TSNotes.model.entity.NoteEntity;
 import com.example.TSNotes.TSNotes.repository.NoteRepository;
 
@@ -14,7 +15,9 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -34,7 +37,10 @@ public class NoteService {
         String currentTime = Instant.now().toString();
         noteEntity.setCreatedAt(currentTime);
         noteEntity.setUpdatedAt(currentTime);
-        try{noteRepository.save(noteEntity);}
+        noteEntity.setTags(new HashSet<>());
+        try{
+            noteRepository.save(noteEntity);
+        }
         catch (DuplicateKeyException ex){
             throw new DuplicateTitleException();
         }
@@ -56,7 +62,18 @@ public class NoteService {
         note.setTitle(noteDetails.getTitle());
         note.setContent(noteDetails.getContent());
         note.setUpdatedAt(Instant.now().toString());
-        noteRepository.save(note);
+        try{
+            noteRepository.save(note);
+        }
+        catch (DuplicateKeyException ex){
+            throw new DuplicateTitleException();
+        }
+
+    }
+
+    public void addTag(String title,TagDto tagDto){
+        NoteEntity note=noteRepository.findByTitle(title).orElseThrow(NoteNotFoundException::new);
+        note.addTag(tagDto.getTag());
 
     }
 

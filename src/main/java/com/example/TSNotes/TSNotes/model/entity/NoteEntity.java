@@ -10,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.Set;
+
 @Getter
 @Setter
 @Document(collection = "notes")
@@ -23,6 +25,12 @@ public class NoteEntity implements Serializable {
     private String content;
     private String createdAt;
     private String updatedAt;
+    private Set<String> tags;
+
+    public void addTag(String tag){
+        tags.add(tag);
+    }
+
 
 
 }
