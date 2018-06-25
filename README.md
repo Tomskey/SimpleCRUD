@@ -49,9 +49,3 @@ To test functionality of this project you need to run Postman, in Omnibox type e
 
 It is worth remembering, that MongoDB create predefined ID numbers, so in TSNotes, you need to use titles to e.g. get single notes.
 
-
-
-
-
-
-
