@@ -28,20 +28,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
         String errorMessage = parseErrorMessageFromException(ex);
-
         HttpStatus badRequestStatus = HttpStatus.BAD_REQUEST;
-        JsonNode formattedResponse =
-                new ServiceException(badRequestStatus, errorMessage).formattedResponse();
+        JsonNode formattedResponse = new ServiceException(badRequestStatus, errorMessage).formattedResponse();
         return handleExceptionInternal(ex, formattedResponse, headers, badRequestStatus, request);
     }
 
     private String parseErrorMessageFromException(MethodArgumentNotValidException ex) {
         String[] errorMessage = new String[]{""};
-
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errorMessage[0] += error.getField() + ": " + error.getDefaultMessage());
-        ex.getBindingResult().getGlobalErrors().forEach(error ->
-                errorMessage[0] += error.getObjectName() + ": " + error.getDefaultMessage());
+        ex.getBindingResult().getFieldErrors().forEach(error -> errorMessage[0] += error.getField() + ": " + error.getDefaultMessage());
+        ex.getBindingResult().getGlobalErrors().forEach(error -> errorMessage[0] += error.getObjectName() + ": " + error.getDefaultMessage());
         return errorMessage[0];
     }
 

@@ -33,38 +33,35 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TsNotesApplicationTests {
 
-	@Mock
-	private NoteService noteService;
+    @Mock
+    private NoteService noteService;
+    @InjectMocks
+    private NoteController noteController;
+    private MockMvc mockMvc;
 
-	@InjectMocks
-	private NoteController noteController;
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(noteController).build();
+    }
 
-	private MockMvc mockMvc;
+    @Test
+    public void getAllNotesTest() throws Exception {
+        List<NoteDto> notes = new ArrayList<>();
+        notes.add(new NoteDto());
+        notes.add(new NoteDto());
+        notes.add(new NoteDto());
 
-	@Before
-	public void setup(){
-		MockitoAnnotations.initMocks(this);
-		mockMvc = MockMvcBuilders.standaloneSetup(noteController).build();
-	}
-
-	@Test
-	public void getAllNotesTest() throws Exception{
-		List<NoteDto> notes = new ArrayList<>();
-		notes.add(new NoteDto());
-		notes.add(new NoteDto());
-		notes.add(new NoteDto());
-
-		when(noteService.findAll()).thenReturn((List) notes);
-		mockMvc.perform(get("/api/notes/"))
-				.andExpect(status().isOk())
-				.andExpect(view().name("/api/notes/"))
-				.andExpect(model().attribute("notes",hasSize(3)));
-	}
+        when(noteService.findAll()).thenReturn((List) notes);
+        mockMvc.perform(get("/api/notes/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("/api/notes/"))
+                .andExpect(model().attribute("notes", hasSize(3)));
+    }
 
 
 //	@Test

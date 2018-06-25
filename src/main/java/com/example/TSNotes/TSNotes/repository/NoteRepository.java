@@ -2,7 +2,6 @@ package com.example.TSNotes.TSNotes.repository;
 
 import com.example.TSNotes.TSNotes.model.entity.NoteEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
-
 import java.util.Optional;
 
 
