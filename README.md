@@ -18,7 +18,6 @@ TSNotes uses a number of technologies to work properly:
 * Maven - Build automation tool for Java.
 
 
-
 ### Installation
 
 TSNotes requires JDK 1.8 to run.
