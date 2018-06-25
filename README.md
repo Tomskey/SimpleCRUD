@@ -23,9 +23,9 @@ TSNotes uses a number of open source projects to work properly:
 
 TSNotes requires JDK 1.8 to run.
 
-Download and Install [MongoDB](https://www.mongodb.com/download-center?jmp=nav).
-Download and Install [InteliiJ IDE](https://www.jetbrains.com/idea/) if needed.
-Download and Install [Postman](https://www.getpostman.com/apps) to run tests with this specialized application.
+* Download and Install [MongoDB](https://www.mongodb.com/download-center?jmp=nav).
+* Download and Install [InteliiJ IDE](https://www.jetbrains.com/idea/) if needed.
+* Download and Install [Postman](https://www.getpostman.com/apps) to run tests with this specialized application.
 
 To run this project you need to:
 
