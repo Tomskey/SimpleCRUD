@@ -28,6 +28,7 @@ TSNotes requires JDK 1.8 to run.
 
 To run this project you need to:
 
+
 Run Mongo database(in Windows): 
 * First, add enviromental variable path (default in C:\Program Files\MongoDB\Server\3.6\bin) to automatically run database without typing full path of mongo.
 * Open cmd and type "mongod" to run database(default port 27017).
