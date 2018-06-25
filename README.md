@@ -43,7 +43,7 @@ Add Run/Debug Configuration:
     
 You can now run and test project.
 
-Unfortunately there is not implemented any of integration tests, so you need to follow instructions below.
+Unfortunately, there is no implementation of the integration tests, so you need to follow instructions below.
 
 To test functionality of this project you need to run Postman, in Omnibox type e.g. "localhost:8080/api/notes/"(port 8080 its default port for this project) and choose required method.
 
